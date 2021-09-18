@@ -43,7 +43,24 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  ListTile _bandTile(Band band) => ListTile(
+  Widget _bandTile(Band band) {
+    return Dismissible(
+      key: Key(band.id),
+      onDismissed: (direction) {
+        print('direction: $direction');
+      },
+      background: Container(
+        padding: const EdgeInsets.only(left: 10),
+        color: Colors.red,
+        child: const Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Delete band',
+              style: TextStyle(color: Colors.white),
+            )),
+      ),
+      direction: DismissDirection.startToEnd,
+      child: ListTile(
         leading: CircleAvatar(
           child: Text(band.name.substring(0, 2)),
           backgroundColor: Colors.blue[100],
@@ -57,7 +74,9 @@ class _HomePageState extends State<HomePage> {
           // ignore: avoid_print
           print(band.name);
         },
-      );
+      ),
+    );
+  }
 
   addNewBand() {
     final textController = TextEditingController();
