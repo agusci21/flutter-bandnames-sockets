@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:band_names/pages/home_page.dart';
 
-
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -13,9 +12,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       initialRoute: 'home',
-      routes: {
-        'home' : (_) => const HomePage()
-      },
+      routes: {'home': (_) => const HomePage()},
     );
   }
 }
