@@ -10,8 +10,11 @@ enum ServerStatus{
 class SocketService with ChangeNotifier{
 
   ServerStatus _serverStatus = ServerStatus.OnLine;
+  late IO.Socket _socket;
 
-  get serverStatus => this._serverStatus;
+  ServerStatus get serverStatus => this._serverStatus;
+
+  IO.Socket get socket => this._socket;
 
   SocketService(){
     this.initConfig();
@@ -19,27 +22,27 @@ class SocketService with ChangeNotifier{
 
   void initConfig(){
 
-    IO.Socket socket = IO.io('http://192.168.54.177:3000', {
+     _socket = IO.io('http://192.168.54.177:3000', {
       'transports' : ['websocket'],
       'autoConnect': true,
     });
     
-    socket.on('connect', (_) {
+    _socket.on('connect', (_) {
       this._serverStatus = ServerStatus.OnLine;
       notifyListeners();
     });
 
-    socket.on('disconnect', (_) {
+    _socket.on('disconnect', (_) {
       this._serverStatus = ServerStatus.OffLine;
       notifyListeners();
     });
 
-    socket.on('nuevo-mensaje', (payload) {
+    /*socket.on('nuevo-mensaje', (payload) {
       print('nuevo-mensaje: ');
       print('nombre: ' + payload['nombre']);
       print('mensaje: ' + payload['mensaje']);
       print(payload.containsKey('mensaje2') ? payload['mensaje2'] : 'No Hay');
-    });
+    });*/
 
   }
 
