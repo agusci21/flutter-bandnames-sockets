@@ -77,10 +77,12 @@ class _HomePageState extends State<HomePage> {
     return Dismissible(
       key: Key(band.id),
       direction: DismissDirection.startToEnd,
-      onDismissed: ( direction ) {
-        print('direction: $direction');
-        print('id: ${ band.id }');
+      onDismissed: ( _ ) {
+        socketService.emit('delete-band', {'id' : band.id});
+        //print('id: ${ band.id }');
         // TODO: llamar el borrado en el server
+        //emitir delete-band
+        //{'id': band.id}
       },
       background: Container(
         padding: EdgeInsets.only( left: 8.0 ),
@@ -162,10 +164,6 @@ class _HomePageState extends State<HomePage> {
 
     if ( name.length > 1 ) {
       socketService.emit('add-band', { 'name': name });
-      // Podemos agregar
-      //add-band
-      //{name:name}
-      
     }
 
 
