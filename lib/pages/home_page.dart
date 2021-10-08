@@ -39,12 +39,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  List<Band> bands = [
-   /* Band(id: '1', name: 'Metallica', votes: 5 ),
-    Band(id: '2', name: 'Queen', votes: 1 ),
-    Band(id: '3', name: 'Héroes del Silencio', votes: 2 ),
-    Band(id: '4', name: 'Bon Jovi', votes: 5 ),*/
-  ];
+  List<Band> bands = [];
 
 
   @override
@@ -163,12 +158,14 @@ class _HomePageState extends State<HomePage> {
   }  
 
   void addBandToList( String name ) {
-    print(name);
+    final socketService = Provider.of<SocketService>(context, listen: false);
 
     if ( name.length > 1 ) {
+      socketService.emit('add-band', { 'name': name });
       // Podemos agregar
-      this.bands.add( new Band(id: DateTime.now().toString(), name: name, votes: 0 ) );
-      setState(() {});
+      //add-band
+      //{name:name}
+      
     }
 
 
